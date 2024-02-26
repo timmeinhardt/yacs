@@ -427,7 +427,10 @@ class CfgNode(dict):
         # Try to interpret `value` as a:
         #   string, number, tuple, list, dict, boolean, or None
         try:
-            value = literal_eval(value)
+            value_literal = literal_eval(value)
+            if not (value.isnumeric() and len(value) != len(str(value_literal))):
+                value = value_literal
+
         # The following two excepts allow v to pass through when it represents a
         # string.
         #
